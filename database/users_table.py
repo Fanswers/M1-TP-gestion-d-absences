@@ -28,10 +28,9 @@ def connexion_database(dbname, name_account, password):
     collection = dbname['users']
     cursor = collection.find({})
     for document in cursor:
-        if name_account == document["name"] and password == document["password"]:
-            return False
-    return True
-
+        if name_account == document["last_name"] and password == document["password"]:
+            return False, document
+    return True, None
 
 
 def create_user(name, last_name, role, password, address, phone_number):
@@ -52,3 +51,13 @@ def create_user(name, last_name, role, password, address, phone_number):
     users_col.insert_one(user_item)
 
     print("\nUtilisateur créé avec succès !")
+
+
+def show_all_users_database(dbname):
+    collection = dbname['users']
+    cursor = collection.find({})
+    list_of_users = []
+    for document in cursor:
+        list_of_users.append(document)
+    return list_of_users
+
