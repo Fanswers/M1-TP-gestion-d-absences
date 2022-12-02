@@ -12,7 +12,7 @@ def create_user():
     while second_password != password:
         second_password = input("4/6 - Incorrect, retapez votre mot de passe :")
     address = input("5/6 - Adresse :")
-    phone_number = input("5/6 - Téléphone :")
+    phone_number = input("6/6 - Téléphone :")
 
     validate = input("Valider la création - Y/n")
     if validate == "Y":
