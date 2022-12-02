@@ -41,3 +41,5 @@ def create_user(name, last_name, role, password, address, phone_number):
     }
 
     users_col.insert_one(user_item)
+
+    print("Utilisateur créé avec succès !")
