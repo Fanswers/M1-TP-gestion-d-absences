@@ -14,11 +14,20 @@ def get_database():
     return db
 
 
-def find_one():
-    dbname = get_database()
+def find_one(dbname):
 
     users_col = dbname["users"]
 
     x = users_col.find_one()
 
     print(x)
+
+
+def connexion_database(dbname, name_account, password):
+    collection = dbname['users']
+    cursor = collection.find({})
+    for document in cursor:
+        if name_account == document["name"] and password == document["password"]:
+            return False
+    return True
+
