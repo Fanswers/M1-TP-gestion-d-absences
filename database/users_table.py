@@ -11,17 +11,7 @@ def get_database():
         f"mongodb+srv://alarrode:{password}@cluster0.0qgkquq.mongodb.net/?retryWrites=true&w=majority", uuidRepresentation='standard')
 
     db = client["test_unitaires"]
-
     return db
-
-
-def find_one(dbname):
-
-    users_col = dbname["users"]
-
-    x = users_col.find_one()
-
-    print(x)
 
 
 def connexion_database(dbname, name_account, password):
@@ -33,8 +23,7 @@ def connexion_database(dbname, name_account, password):
     return True, None
 
 
-def create_user(name, last_name, role, password, address, phone_number):
-    dbname = get_database()
+def create_user(dbname, name, last_name, role, password, address, phone_number):
 
     users_col = dbname["users"]
 

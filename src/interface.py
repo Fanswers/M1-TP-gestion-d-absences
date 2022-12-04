@@ -10,14 +10,14 @@ def connexion(dbname):
     connexion_value, user = users_table.connexion_database(dbname, name_account, password)
 
     # Check if connected
-    if connexion_value :
+    if connexion_value:
         print(colored("Nom de compte ou mot de passe incorrect.", "red"))
     else:
         print(colored("Vous êtes connecté.", 'green'))
     return connexion_value, user
 
 
-def create_user():
+def create_user(dbname):
     print("Remplissez les informations de l'utilisateurs :")
 
     name = input("1/6 - Prénom : ")
@@ -32,7 +32,7 @@ def create_user():
 
     validate = input("Valider la création - Y/n ")
     if validate == "Y":
-        database_create_user(name, last_name, role, password, address, phone_number)
+        database_create_user(dbname, name, last_name, role, password, address, phone_number)
 
 
 def show_informations(user):
@@ -75,4 +75,3 @@ def admin_panel(dbname, user):
                 break
             case _:
                 print(colored("Ce n'est pas une entrée valide.", "red"))
-

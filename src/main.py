@@ -1,5 +1,5 @@
 import database.users_table as users_table
-import interface
+import src.interface as interface
 
 if __name__ == '__main__':
     # Connection a la database
