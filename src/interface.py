@@ -1,7 +1,5 @@
 import database.users_table as users_table
 from termcolor import colored
-from database.users_table import create_user as database_create_user
-from database.users_table import update_user as database_update_user
 
 
 def connexion(dbname):
@@ -33,7 +31,7 @@ def create_user():
 
     validate = input("Valider la création - Y/n ")
     if validate == "Y":
-        database_create_user(name, last_name, role, password, address, phone_number)
+        users_table.create_user(name, last_name, role, password, address, phone_number)
         print("\nUtilisateur créé avec succès !")
 
 
@@ -53,7 +51,7 @@ def update_user():
 
     validate = input("Valider les modification - Y/n ")
     if validate == "Y":
-        database_update_user(uuid, name, last_name, role, password, address, phone_number)
+        users_table.update_user(uuid, name, last_name, role, password, address, phone_number)
         print("\nUtilisateur modifié avec succès !")
 
 
