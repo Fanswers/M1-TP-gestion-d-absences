@@ -42,10 +42,18 @@ def update_user():
     uuid = input("1/6 - UUID de l'utilisateur : ")
 
     name = input("2/6 - Prénom : ")
+    last_name = input("2/6 - Nom : ")
+    role = input("3/6 - Quel poste occupe l'utilisateur ? Enseignant, Etudiant ou Administrateur ? ")
+    password = input("4/6 - Nouveau mot de passe de l'utilisateurn : ")
+    second_password = input("4/6 - Retapez le mot de passe : ")
+    while second_password != password:
+        second_password = input("4/6 - Incorrect, retapez le mot de passe : ")
+    address = input("5/6 - Nouvelle adresse de l'utilisateur : ")
+    phone_number = input("6/6 - Nouveau téléphone : ")
 
-    validate = input("Valider la modification - Y/n ")
+    validate = input("Valider les modification - Y/n ")
     if validate == "Y":
-        database_update_user(uuid, name)
+        database_update_user(uuid, name, last_name, role, password, address, phone_number)
         print("\nUtilisateur modifié avec succès !")
 
 
