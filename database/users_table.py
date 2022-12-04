@@ -40,14 +40,13 @@ def create_user(dbname, name, last_name, role, password, address, phone_number):
     users_col.insert_one(user_item)
 
 
-def update_user(user_uuid, name, last_name, role, password, address, phone_number):
-    dbname = get_database()
+def update_user(dbname, user_uuid, name, last_name, role, password, address, phone_number):
 
     users_col = dbname["users"]
 
     # Updating the tv company name from
     # 'samsung' to 'sony'.
-    filter = {'_id': uuid.UUID(f"{user_uuid}")}
+    filter_uuid = {'_id': uuid.UUID(f"{user_uuid}")}
 
     # Values to be updated.
     newvalues = {"$set": {'name': name,
@@ -59,7 +58,7 @@ def update_user(user_uuid, name, last_name, role, password, address, phone_numbe
                           }}
 
     # Using update_one() method for single updation.
-    users_col.update_one(filter, newvalues)
+    users_col.update_one(filter_uuid, newvalues)
 
 
 def show_all_users_database(dbname):
