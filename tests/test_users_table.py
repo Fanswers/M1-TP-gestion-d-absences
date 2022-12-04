@@ -11,7 +11,7 @@ def client_mock():
 
 @pytest.fixture
 def mock_db(client_mock):
-    obj = {'last_name': 'Admin', 'password': 'Admin'}
+    obj = {'_id': 1, 'last_name': 'Admin', 'password': 'Admin'}
     client_mock.db['users'].insert_one(obj)
     yield client_mock.db
 
@@ -31,9 +31,54 @@ def mock_db(client_mock):
         'no identifiers',
     ]
 )
-def test_connexion_database(mock_db, test_input_name, test_input_password, expected_output):
+def test_connexion_user(mock_db, test_input_name, test_input_password, expected_output):
     test_value, test_user = users.connexion_database(mock_db, test_input_name, test_input_password)
     assert test_value == expected_output
+
+
+@pytest.mark.parametrize(
+    "expected_output",
+    [{'_id': 1,
+        'last_name': 'Admin',
+        'password': 'Admin'}],
+    ids=[
+        'good users'
+    ]
+)
+def test_show_all_users_database_good(mock_db, expected_output):
+    test_recup = users.show_all_users_database(mock_db)
+    assert test_recup == [expected_output]
+
+
+@pytest.mark.parametrize(
+    "expected_output",
+    [{'_id': 2,
+        'last_name': 'Admin',
+        'password': 'Admin'},
+     {'_id': 1,
+      'last_name': 'Admon',
+      'password': 'Admin'},
+     {'_id': 1,
+      'last_name': 'Admin',
+      'password': 'Admon'},
+     {'_id': 2,
+      'last_name': 'Admon',
+      'password': 'Admon'},
+     {'_id': "",
+      'last_name': '',
+      'password': ''}
+     ],
+    ids=[
+        'bad id',
+        'bad last_name',
+        'bad password',
+        'bad all',
+        'empty'
+    ]
+)
+def test_show_all_users_database_bad(mock_db, expected_output):
+    test_recup = users.show_all_users_database(mock_db)
+    assert test_recup != [expected_output]
 
 
 @pytest.mark.parametrize(
