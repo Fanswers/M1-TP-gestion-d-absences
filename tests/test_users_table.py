@@ -1,6 +1,7 @@
 import pytest
 import database.users_table as users
 import mongomock
+from contextlib import nullcontext as does_not_raise
 
 
 @pytest.fixture
@@ -34,3 +35,19 @@ def test_connexion_database(mock_db, test_input_name, test_input_password, expec
     test_value, test_user = users.connexion_database(mock_db, test_input_name, test_input_password)
     assert test_value == expected_output
 
+
+@pytest.mark.parametrize(
+    "user_info, expectation",
+    [({"uuid": "30352e23-e61b-42d9-bf4b-7d7986af8b22",
+       "name": "Admin"}, does_not_raise()),
+    ({"uuid": "3033-e61b-42d9-bf4b-7d7986af8b22",
+       "name": "Admin"}, pytest.raises(ValueError))
+     ],
+    ids=[
+        'good uuid',
+        'wrong id'
+    ]
+)
+def test_update_user(mock_db, user_info, expectation):
+    with expectation:
+        users.update_user(mock_db, user_info["uuid"], user_info["name"], "Admin", "Administrateur", "Admin", "Admin", "00 00 00 00 00")
