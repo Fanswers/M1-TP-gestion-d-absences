@@ -68,4 +68,3 @@ def show_all_users_database(dbname):
     for document in cursor:
         list_of_users.append(document)
     return list_of_users
-
