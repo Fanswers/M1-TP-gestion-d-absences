@@ -1,5 +1,6 @@
 import database.users_table as users_table
 from termcolor import colored
+from database.users_table import create_user as database_create_user
 
 
 def connexion(dbname):
@@ -9,14 +10,14 @@ def connexion(dbname):
     connexion_value, user = users_table.connexion_database(dbname, name_account, password)
 
     # Check if connected
-    if connexion_value :
+    if connexion_value:
         print(colored("Nom de compte ou mot de passe incorrect.", "red"))
     else:
         print(colored("Vous êtes connecté.", 'green'))
     return connexion_value, user
 
 
-def create_user():
+def create_user(dbname):
     print("Remplissez les informations de l'utilisateurs :")
 
     name = input("1/6 - Prénom : ")
@@ -31,11 +32,11 @@ def create_user():
 
     validate = input("Valider la création - Y/n ")
     if validate == "Y":
-        users_table.create_user(name, last_name, role, password, address, phone_number)
+        users_table.create_user(dbname, name, last_name, role, password, address, phone_number)
         print("\nUtilisateur créé avec succès !")
 
 
-def update_user():
+def update_user(dbname):
     print("Quel utilisateur souhaitez vous modifier ?")
     uuid = input("1/6 - UUID de l'utilisateur : ")
 
@@ -51,7 +52,7 @@ def update_user():
 
     validate = input("Valider les modification - Y/n ")
     if validate == "Y":
-        users_table.update_user(uuid, name, last_name, role, password, address, phone_number)
+        users_table.update_user(dbname, uuid, name, last_name, role, password, address, phone_number)
         print("\nUtilisateur modifié avec succès !")
 
 
@@ -68,10 +69,10 @@ def show_informations(user):
 def show_all_users(dbname):
     users = users_table.show_all_users_database(dbname)
     for user in users:
-        print("ID", user["_id"], "   ---   ", "Nom:", user["last_name"], "   ---   ", "Prénom:", user["name"], "   ---   ", "Role:", user["role"])
+        print("ID", user["_id"], "   ---   Nom:", user["last_name"], "   ---   Prénom:", user["name"], "   ---   Role:", user["role"])
 
 
-def admin_panel(dbname, user):
+def admin_panel(dbname):
     is_exit = False
     while not is_exit:
         print(colored("===== INTERFACE ADMINISTRATEUR =====", "blue"))
@@ -85,9 +86,9 @@ def admin_panel(dbname, user):
             case "1":
                 show_all_users(dbname)
             case "2":
-                create_user()
+                create_user(dbname)
             case "3":
-                update_user()
+                update_user(dbname)
             case "4":
                 print(choice)
             case "5":

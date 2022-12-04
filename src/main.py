@@ -1,5 +1,5 @@
 import database.users_table as users_table
-import interface
+import src.interface as interface
 
 if __name__ == '__main__':
     # Connection a la database
@@ -12,6 +12,6 @@ if __name__ == '__main__':
 
     # Affichage selon le role de l'utilisateur
     if user["role"] == "Administrateur":
-        interface.admin_panel(database, user)
+        interface.admin_panel(database)
     else:
         interface.show_informations(user)
