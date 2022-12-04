@@ -50,7 +50,27 @@ def create_user(name, last_name, role, password, address, phone_number):
 
     users_col.insert_one(user_item)
 
-    print("\nUtilisateur créé avec succès !")
+
+def update_user(user_uuid, name, last_name, role, password, address, phone_number):
+    dbname = get_database()
+
+    users_col = dbname["users"]
+
+    # Updating the tv company name from
+    # 'samsung' to 'sony'.
+    filter = {'_id': uuid.UUID(f"{user_uuid}")}
+
+    # Values to be updated.
+    newvalues = {"$set": {'name': name,
+                          'last_name': last_name,
+                          'role': role,
+                          'password': password,
+                          'address': address,
+                          'phone_number': phone_number
+                          }}
+
+    # Using update_one() method for single updation.
+    users_col.update_one(filter, newvalues)
 
 
 def show_all_users_database(dbname):

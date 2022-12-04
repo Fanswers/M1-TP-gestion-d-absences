@@ -1,6 +1,5 @@
 import database.users_table as users_table
 from termcolor import colored
-from database.users_table import create_user as database_create_user
 
 
 def connexion(dbname):
@@ -32,7 +31,28 @@ def create_user():
 
     validate = input("Valider la création - Y/n ")
     if validate == "Y":
-        database_create_user(name, last_name, role, password, address, phone_number)
+        users_table.create_user(name, last_name, role, password, address, phone_number)
+        print("\nUtilisateur créé avec succès !")
+
+
+def update_user():
+    print("Quel utilisateur souhaitez vous modifier ?")
+    uuid = input("1/6 - UUID de l'utilisateur : ")
+
+    name = input("2/6 - Prénom : ")
+    last_name = input("2/6 - Nom : ")
+    role = input("3/6 - Quel poste occupe l'utilisateur ? Enseignant, Etudiant ou Administrateur ? ")
+    password = input("4/6 - Nouveau mot de passe de l'utilisateurn : ")
+    second_password = input("4/6 - Retapez le mot de passe : ")
+    while second_password != password:
+        second_password = input("4/6 - Incorrect, retapez le mot de passe : ")
+    address = input("5/6 - Nouvelle adresse de l'utilisateur : ")
+    phone_number = input("6/6 - Nouveau téléphone : ")
+
+    validate = input("Valider les modification - Y/n ")
+    if validate == "Y":
+        users_table.update_user(uuid, name, last_name, role, password, address, phone_number)
+        print("\nUtilisateur modifié avec succès !")
 
 
 def show_informations(user):
@@ -67,7 +87,7 @@ def admin_panel(dbname, user):
             case "2":
                 create_user()
             case "3":
-                print(choice)
+                update_user()
             case "4":
                 print(choice)
             case "5":
