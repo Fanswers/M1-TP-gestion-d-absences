@@ -30,7 +30,7 @@ def mock_db(client_mock):
         'no identifiers',
     ]
 )
-def test_connexion_database(mock_db, test_input_name, test_input_password, expected_output):
+def test_connexion_user(mock_db, test_input_name, test_input_password, expected_output):
     test_value, test_user = users.connexion_database(mock_db, test_input_name, test_input_password)
     assert test_value == expected_output
 
