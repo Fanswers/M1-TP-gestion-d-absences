@@ -44,8 +44,6 @@ def update_user(dbname, user_uuid, name, last_name, role, password, address, pho
 
     users_col = dbname["users"]
 
-    # Updating the tv company name from
-    # 'samsung' to 'sony'.
     filter_uuid = {'_id': uuid.UUID(f"{user_uuid}")}
 
     # Values to be updated.
